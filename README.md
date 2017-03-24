@@ -1,3 +1,7 @@
+fork by https://github.com/whatwg/fetch
+and retry
+
+
 # window.fetch polyfill
 
 The `fetch()` function is a Promise-based mechanism for programmatically making
