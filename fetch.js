@@ -419,7 +419,7 @@
   self.Request = Request
   self.Response = Response
 
-  self.fetch = function(input, init) {
+  self.fetch = function(input, init, config) {
     return new Promise(function(resolve, reject) {
       var request = new Request(input, init)
       var xhr = new XMLHttpRequest()
@@ -436,11 +436,46 @@
       }
 
       xhr.onerror = function() {
-        reject(new TypeError('Network request failed'))
+        // reject(new TypeError('Network request failed'))
+
+        if (config && config.resend && config.resend > 0) {
+          //console.info("resend");
+          //console.info(config);
+          setTimeout(function () {
+            return fetch(input, init && Object.assign(init, {retry: init.retry && init.retry || 1}) || {retry: 1}, Object.assign(config, {
+              resend: --config.resend,
+              timeout: undefined
+            })).then((data) => {
+              resolve(data);
+            }).catch((err)=> {
+              reject(new TypeError(err));
+            })
+          }, config.resendInterval || 1000);
+        } else {
+          reject(new TypeError('request to ' + input + ' failed, reason: connect break.'));
+        }
       }
 
       xhr.ontimeout = function() {
-        reject(new TypeError('Network request failed'))
+        // reject(new TypeError('Network request failed'))
+
+        if (config && config.resend && config.resend > 0) {
+          //console.info("resend");
+          //console.info(config);
+          setTimeout(function () {
+            return fetch(input, init && Object.assign(init, {retry: init.retry && init.retry || 1}) || {retry: 1}, Object.assign(config, {
+              resend: --config.resend,
+              timeout: undefined
+            })).then((data) => {
+              resolve(data);
+            }).catch((err)=> {
+              reject(new TypeError(err));
+            })
+          }, config.resendInterval || 1000);
+        } else {
+          reject(new TypeError('network timeout request at: ' + input + ' timeout : ' + config.timout));
+        }
+
       }
 
       xhr.open(request.method, request.url, true)
