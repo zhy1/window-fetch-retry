@@ -1,7 +1,7 @@
 {
   "name": "whatwg-fetch-retry",
   "description": "A window.fetch polyfill.",
-  "version": "2.0.4",
+  "version": "1.0.1-retry",
   "main": "fetch.js",
   "repository": "github/fetch",
   "license": "MIT",
