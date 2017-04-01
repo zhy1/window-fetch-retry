@@ -373,6 +373,9 @@
     var debugUrl = 'http://127.1:8091/req';
     var recordUrl = 'http://127.1:8091/req';
     return new Promise(function(resolve, reject) {
+
+      var timer;
+
       if (input.indexOf(recordUrl) == -1){
         fetch(recordUrl, {
               method: 'PUT',
@@ -407,8 +410,8 @@
         return
       }
 
-
       xhr.onload = function() {
+        timer && clearTimeout(timer);
         var options = {
           status: xhr.status,
           statusText: xhr.statusText,
@@ -433,12 +436,21 @@
         resolve(new Response(body, options))
       }
       // add new config.
-      xhr.timeout = config && config.timeout||0;
+      // xhr.timeout = config && config.timeout||0;
+
+      if (init && init.timeout && init.timeout > 0) {
+        timer =setTimeout(function () {
+          // timeout = true;
+          xhr.abort();//请求中止
+          reject(new TypeError('request to ' + input + ' abort, reason: timeout.' + init.timeout));
+        }, init.timeout);
+      }
 
       xhr.config = config||{};
       // changed config
       xhr.onerror = function () {
         // reject(new TypeError('Network request failed'))
+        timer && clearTimeout(timer);
 
         if (config && config.resend && config.resend > 0) {
           //console.info("resend");
@@ -464,6 +476,7 @@
       xhr.ontimeout = function () {
         // reject(new TypeError('Network request failed'))
 
+        timer && clearTimeout(timer);
         if (config && config.resend && config.resend > 0) {
           //console.info("resend");
           //console.info(config);
