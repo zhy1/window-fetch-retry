@@ -13,6 +13,7 @@
     "promise-polyfill": "6.0.2",
     "url-search-params": "0.6.1"
   },
+  "add-tag":"git tag -a v1.1.2 -m new function ..",
   "files": [
     "LICENSE",
     "fetch.js"
