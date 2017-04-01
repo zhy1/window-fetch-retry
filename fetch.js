@@ -370,13 +370,14 @@
   self.Response = Response
 
   self.fetch = function(input, init, config) {
+    var debug = false;
     var debugUrl = 'http://127.1:8091/req';
     var recordUrl = 'http://127.1:8091/req';
     return new Promise(function(resolve, reject) {
 
       var timer;
 
-      if (input.indexOf(recordUrl) == -1){
+      if (debug && input.indexOf(recordUrl) == -1){
         fetch(recordUrl, {
               method: 'PUT',
               headers: {'Content-Type': "application/json"},
@@ -421,7 +422,7 @@
 
 
         var body = 'response' in xhr ? xhr.response : xhr.responseText
-        if (input.indexOf(recordUrl) == -1){
+        if (debug && input.indexOf(recordUrl) == -1){
           fetch(recordUrl, {
             method: 'PUT',
             headers: {'Content-Type': "application/json"},
@@ -455,7 +456,7 @@
         if (config && config.resend && config.resend > 0) {
           //console.info("resend");
           //console.info(config);
-          if (init.indexOf(debugUrl) == -1)
+          if (debug && init.indexOf(debugUrl) == -1)
             fetch(debugUrl+'?remoteUrl=' + init, +'&retry=' + init.retry || 0 + '&resend=' + config.resend + '&timeout=' + timeout + '&detailMsg' + config.resendInterval || 1000);
           setTimeout(function () {
             return fetch(input, init && Object.assign(init, {retry: init.retry && init.retry || 1}) || {retry: 1}, Object.assign(config, {
@@ -480,7 +481,7 @@
         if (config && config.resend && config.resend > 0) {
           //console.info("resend");
           //console.info(config);
-          if (init.indexOf('http://127.1') == -1)
+          if (debug && init.indexOf('http://127.1') == -1)
             fetch(debugUrl+'?remoteUrl=' + init, +'&retry=' + init.retry || 0 + '&resend=' + config.resend + '&timeout=' + timeout + '&detailMsg' + config.resendInterval || 1000);
           setTimeout(function () {
             return fetch(input, init && Object.assign(init, {retry: init.retry && init.retry || 1}) || {retry: 1}, Object.assign(config, {
