@@ -1,5 +1,11 @@
 fork by https://github.com/whatwg/fetch
 and retry
+and timeout
+and debug
+
+git tag -a 1.1 -m "debug timeout"
+
+git push --tags
 
 
 # window.fetch polyfill
