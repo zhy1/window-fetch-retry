@@ -1,4 +1,7 @@
 
+a best way to retry xhr request from fetch
+
+
 accept pull request.
 
 define
