@@ -4,6 +4,16 @@ a best way to retry xhr request from fetch
 
 accept pull request.
 
+
+
+use
+```sh
+npm install window-fetch-retry
+````
+
+
+
+
 define
 ```javascript
 fetch(url, config)
