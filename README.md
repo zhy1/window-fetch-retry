@@ -35,9 +35,14 @@ MIT
 
 ## thx for 
 
-  [thx base from]: "github/fetch"
-  [thx]: https://fetch.spec.whatwg.org
-  [thx]: http://todogroup.org/opencodeofconduct/#fetch/opensource@github.com
-  [thx]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
-  [thx]: https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet
-  [thx]: https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name
+github/fetch
+
+https://fetch.spec.whatwg.org
+
+http://todogroup.org/opencodeofconduct/#fetch/opensource@github.com
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+
+https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)_Prevention_Cheat_Sheet
+
+https://developer.mozilla.org/en-US/docs/Glossary/Forbidden_header_name
